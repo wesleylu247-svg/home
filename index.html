@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Duluth Dashboard</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <style>
+        * { box-sizing: border-box; }
+        body, html {
+            margin: 0; padding: 0;
+            background-color: #000;
+            width: 100vw; height: 100vh;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr; /* Perfect 2x2 grid */
+            gap: 12px;
+            width: 100%; height: 100%;
+            padding: 12px;
+        }
+        .widget {
+            background: #1a1a1a;
+            border-radius: 12px;
+            border: 1px solid #333;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .scrollable-widget {
+        display: block; /* Removes flex centering which blocks scrolling */
+        overflow-y: auto; /* Allows vertical scrolling */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling for touchscreens */
+    }
+        #clock-widget { color: #2962FF; }
+        #time { font-size: 3rem; font-weight: bold; margin: 0; }
+        #date { font-size: 1.2rem; color: #aaa; margin-top: 5px; }
+        #weather-container { width: 100%; padding: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <div class="widget">
+            <div id="weather-container">
+                <a class="weatherwidget-io" 
+                   href="https://forecast7.com/en/34d00n84d14/duluth/"
+                   data-label_1="DULUTH" 
+                   data-label_2="WEATHER" 
+                   data-theme="pure" 
+                   data-basecolor="#1a1a1a">LOADING WEATHER...</a>
+                <script>
+                !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+                </script>
+            </div>
+        </div>
+
+         <div class="widget">
+
+
+
+            <div class="tradingview-widget-container">
+
+
+
+                <div class="tradingview-widget-container__widget"></div>
+
+
+
+                <script type="text/javascript"
+
+                    src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+
+
+
+                        {
+
+
+
+                            "colorTheme": "dark",
+
+
+
+                                "showChart": true,
+
+
+
+                                    "locale": "en",
+
+
+
+                                        "width": "100%",
+
+
+
+                                            "height": "100%",
+
+
+
+                                                "isTransparent": true,
+
+
+
+                                                    "showSymbolLogo": true,
+
+
+
+                                                        "showFloatingTooltip": false,
+
+
+
+                                                            "tabs": [
+
+
+
+                                                                {
+
+
+
+                                                                    "title": "My Portfolio",
+
+
+
+                                                                    "symbols": [
+
+
+
+                                                                        { "s": "FRED:SP500", "d": "S&P 500" },
+
+
+
+                                                                        { "s": "NASDAQ:NFLX", "d": "Netflix" },
+
+
+
+                                                                        { "s": "NASDAQ:GOOGL", "d": "Google" }
+
+
+
+                                                                    ]
+
+
+
+                                                                }
+
+
+
+                                                            ]
+
+
+
+                        }
+
+
+
+                    </script>
+
+
+
+            </div>
+
+
+
+        </div>
+
+        <div class="widget">
+            <div id="map" style="width: 100%; height: 100%;"></div>
+        </div>
+
+        <div class="widget" id="clock-widget">
+            <div id="time">00:00:00</div>
+            <div id="date">Monday, January 1</div>
+        </div>
+    </div>
+
+    <script src="location.js"></script>
+</body>
+</html>
